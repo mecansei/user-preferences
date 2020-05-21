@@ -6,6 +6,7 @@ from flask_selfdoc import Autodoc
 
 from src.web.controller.AppController import app_controller
 from src.web.controller.PreferenceController import preference_controller
+from src.web.controller.AppController import swagger_blueprint
 
 
 class FlaskConfig:
@@ -20,6 +21,7 @@ class FlaskConfig:
     def register_blue_prints(self):
         self.app.register_blueprint(app_controller)
         self.app.register_blueprint(preference_controller)
+        self.app.register_blueprint(swagger_blueprint, url_prefix="/swagger")
 
     def run_app(self):
         self.app.run(

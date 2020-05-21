@@ -1,7 +1,6 @@
 version: "3"
 services:
- mongo:
-  container_name: mongo-user-preferences
+ local-mongo-user-preferences:
   image: mongo:4.2.5
   ports:
     - "27017:27017"

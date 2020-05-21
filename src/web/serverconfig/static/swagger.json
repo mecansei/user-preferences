@@ -1,0 +1,106 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "mecansei/user-preferences"
+  },
+  "servers": [
+    {
+      "url": "/"
+    }
+  ],
+  "tags": [
+    {
+      "name": "AppController"
+    },
+    {
+      "name": "PreferenceController"
+    }
+  ],
+  "paths": {
+    "/health": {
+      "get": {
+        "tags": [
+          "AppController"
+        ],
+        "summary": "Returns the application's status",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/preference/like": {
+      "post": {
+        "summary": "Count a like in for a user in a specific product",
+        "tags": [
+          "PreferenceController"
+        ],
+        "requestBody": {
+          "description": "Preference Request Object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/preferenceRequest"
+              }
+            }
+          }
+        },
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/preference/dislike": {
+      "post": {
+        "summary": "Count a dislike in for a user in a specific product",
+        "tags": [
+          "PreferenceController"
+        ],
+        "requestBody": {
+          "description": "Preference Request Object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/preferenceRequest"
+              }
+            }
+          }
+        },
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "preferenceRequest": {
+        "type": "object",
+        "properties": {
+          "user_id": {
+            "type": "string",
+            "format": "string"
+          },
+          "product_id": {
+            "type": "string",
+            "format": "string"
+          }
+        }
+      }
+    }
+  }
+}
