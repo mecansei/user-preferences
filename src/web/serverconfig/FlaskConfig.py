@@ -24,6 +24,7 @@ class FlaskConfig:
     def run_app(self):
         self.app.run(
             debug=True,
+            use_reloader=False,
             host=os.getenv("FLASK_HOST"),
             port=os.getenv("FLASK_PORT")
         )

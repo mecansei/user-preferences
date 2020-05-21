@@ -1,16 +1,20 @@
 import configparser
 import os
 
-configuration = configparser.ConfigParser()
-configuration.read("./application.ini")
-
-environment: str = os.getenv("ENVIRONMENT", "DEV")
-for key, value in configuration[environment].items():
-    os.environ[key.upper()] = str(value)
-
-# Must be here to initiate the env variables before initialize
-# all components
-from src.web.serverconfig.FlaskConfig import FlaskConfig
+from src.library.logger.Logger import Logger
 
 if __name__ == "__main__":
-    app = FlaskConfig()()
+    configuration = configparser.ConfigParser()
+    configuration.read("./application.ini")
+
+    environment: str = os.getenv("ENVIRONMENT", "DEV")
+    Logger.info(f"Running with environment: {environment}")
+
+    for key, value in configuration[environment].items():
+        if not os.getenv(key.upper(), None):
+            os.environ[key.upper()] = str(value)
+
+    from src.web.serverconfig.FlaskConfig import FlaskConfig
+    # Must be here to initiate the env variables before initialize
+    # all components
+    FlaskConfig()()

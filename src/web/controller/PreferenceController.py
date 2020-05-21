@@ -18,40 +18,44 @@ service: PreferenceService = PreferenceService(
     preference_dao=preference_dao
 )
 
-@cross_origin()
-@preference_controller.route('/preference/like', methods=['POST'])
-def add_like():
-    response: dict
-    status_code: int = 200
-    try:
-        if not PreferenceValidator.validate(request.json):
-            raise InvalidInputException("Invalid input.")
-        preferenceDto: PreferenceDto = PreferenceValidator.toDto(request.json)
 
-        response = {
-            "status": service.add_like(preferenceDto)
-        }
-    except Exception as exception:
-        status_code = 500
-        response = UtilController.build_error_payback(exception, status_code)
+class PreferenceController:
+    @staticmethod
+    @cross_origin()
+    @preference_controller.route('/preference/like', methods=['POST'])
+    def add_like():
+        response: dict
+        status_code: int = 200
+        try:
+            if not PreferenceValidator.validate(request.json):
+                raise InvalidInputException("Invalid input.")
+            preferenceDto: PreferenceDto = PreferenceValidator.toDto(request.json)
 
-    return UtilController.build_response(response, status_code)
+            response = {
+                "status": service.add_like(preferenceDto)
+            }
+        except Exception as exception:
+            status_code = 500
+            response = UtilController.build_error_payback(exception, status_code)
 
-@cross_origin()
-@preference_controller.route('/preference/dislike', methods=['POST'])
-def add_dislike():
-    response: dict
-    status_code: int = 200
-    try:
-        if not PreferenceValidator.validate(request.json):
-            raise InvalidInputException("Invalid input.")
-        preferenceDto: PreferenceDto = PreferenceValidator.toDto(request.json)
+        return UtilController.build_response(response, status_code)
 
-        response = {
-            "status": service.add_dislike(preferenceDto)
-        }
-    except Exception as exception:
-        status_code = 500
-        response = UtilController.build_error_payback(exception, status_code)
+    @staticmethod
+    @cross_origin()
+    @preference_controller.route('/preference/dislike', methods=['POST'])
+    def add_dislike():
+        response: dict
+        status_code: int = 200
+        try:
+            if not PreferenceValidator.validate(request.json):
+                raise InvalidInputException("Invalid input.")
+            preferenceDto: PreferenceDto = PreferenceValidator.toDto(request.json)
 
-    return UtilController.build_response(response, status_code)
+            response = {
+                "status": service.add_dislike(preferenceDto)
+            }
+        except Exception as exception:
+            status_code = 500
+            response = UtilController.build_error_payback(exception, status_code)
+
+        return UtilController.build_response(response, status_code)
